@@ -1,16 +1,18 @@
 import { useState } from 'react'
 import './App.css'
-import Route from './Routes'
-import GetSupport from '/pages/GetSupport.js'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import GetSupport from './pages/GetSupport.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [count, setCount] = useState(0)
 
-  return (
-      <div>
-          <Route path="/support" element={<GetSupport />} />
-      </div>
-  )
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/support" element={<GetSupport />} />
+            </Routes>
+        </BrowserRouter>
+    )
 }
 
 export default App
