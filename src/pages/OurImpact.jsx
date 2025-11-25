@@ -26,7 +26,7 @@ const StatCard = ({ stat, description }) => {
 
 const OurImpact = () => {
     return (
-        <div className="w-screen min-h-screen bg-[#060A1F] overflow-x-hidden">
+        <div className="w-screen min-h-screen bg-[#060A1F] overflow-x-hidden" style={{fontFamily: 'Figtree'}}>
             <div className="grid grid-rows-[auto_auto_auto_auto] gap-4">
                 {/*Panel 1: Our Impact Hero*/}
                 <div
@@ -37,12 +37,12 @@ const OurImpact = () => {
                shrink-0 bg-cover bg-center"
                     style={{backgroundImage: "url('/Public/OurImpactHeader.png')"}}
                 >
-                    <h2 className="text-2xl md:text-4xl font-bold text-white"> Our Impact </h2>
+                    <h2 className="text-white font-semibold text-[42px] leading-[100%] tracking-[0%]"> Our Impact </h2>
                     <h2 className="text-lg md:text-2xl text-white"> Discover the power of wraparound
                         care</h2>
                 </div>
 
-                {/*Panel 2: Wraparound Care - Now responsive and not covered*/}
+                {/*Panel 2: Wraparound Care*/}
                 <div className="flex flex-col md:flex-row items-start gap-6 md:gap-12 py-8 md:py-[72px] px-6 md:px-[120px]">
                     {/*Text on left side of the panel*/}
                     <div className="w-full md:w-1/2">
@@ -73,7 +73,7 @@ const OurImpact = () => {
                shrink-0 bg-cover bg-center mt-60"
                     style={{backgroundImage: "url('/Public/blueMap.png')"}}
                 >
-                    {/*Stats stretch the whole panel*/}
+                    {/*Stats*/}
                     <div className="flex flex-row justify-between items-center w-full">
                         <StatCard
                             stat="200+"
@@ -89,17 +89,14 @@ const OurImpact = () => {
                         />
                     </div>
 
-                    {/*Left aligned heading*/}
+                    {/*heading*/}
                     <div className="text-white text-left w-full">
-                        <h2
-                            className="font-semibold text-[32px] leading-none tracking-normal"
-                            style={{fontFamily: 'Figtree'}}
-                        >
+                        <h2 className="font-semibold text-[32px] leading-none tracking-normal">
                             Interested in contributing to our impact and joining the cause?
                         </h2>
                     </div>
 
-                    {/*Left aligned buttons stretching the width*/}
+                    {/*buttons*/}
                     <div className="flex flex-row justify-start items-center gap-6 w-full">
                         <button className="bg-[#DD522D] text-white rounded-[99px] px-6 py-3">Partner
                             with Us
@@ -113,24 +110,22 @@ const OurImpact = () => {
                     </div>
                 </div>
 
-                {/*Panel 4: Stories of Success - Images on left, Text on right*/}
+                {/*Panel 4: Stories of Success*/}
                 <div className="flex flex-row justify-between items-start gap-12
                py-8 md:py-[72px]
                px-6 md:px-[120px]
                min-h-[519px]
                shrink-0 bg-cover bg-center mt-60">
-
-                    {/*Left side with images stacked*/}
                     <div className="w-1/2 flex flex-col items-start gap-4">
                         {/*Image of Casey*/}
                         <img
                             src="/Casey.png"
                             alt="Casey"
                             className="w-[464px] h-[464px] shrink-0"/>
-                        
+
                     </div>
 
-                    {/*Text on right side with heart logo - everything left-aligned*/}
+                    {/*Text to stories of success*/}
                     <div className="w-1/2 flex flex-col items-start gap-6">
                         {/*Eyebrow*/}
                         <h2 className="text-white text-sm font-semibold tracking-wider text-left">STORIES OF SUCCESS</h2>
@@ -144,7 +139,7 @@ const OurImpact = () => {
                             "The difference wasn't just the resources," Casey says. "It was being treated
                             like a person with something to offer, not just someone with problems to fix."
                         </h2>
-                        {/*Buttons horizontal*/}
+                        {/*Buttons*/}
                         <div className="flex flex-row gap-4">
                             <button className="bg-[#DD522D] text-white rounded-[99px] px-6 py-3">
                                 Read Casey's Story
@@ -154,7 +149,7 @@ const OurImpact = () => {
                             </button>
                         </div>
 
-                        {/*Heart logo - positioned to the right and can overflow*/}
+                        {/*Heart logo*/}
                         <div className="w-full flex justify-end mt-8">
                             <img
                                 src="/heart.png"
