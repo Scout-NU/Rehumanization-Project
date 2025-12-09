@@ -3,8 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import OurImpact from "./pages/OurImpact.jsx";
 import AboutUs from "./pages/AboutUs.jsx";
 
-import OurTeam from "./pages/OurTeam.tsx";
+import OurTeam from "./pages/OurTeam/page.tsx";
 import Home from "./pages/Home/page.tsx";
+import PartnerWithUs from "./pages/PartnerWithUs/page.tsx";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/our-impact" element={<OurImpact />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/team" element={<OurTeam />} />
+        <Route path="/partner" element={<PartnerWithUs />} />
       </Routes>
     </BrowserRouter>
   );

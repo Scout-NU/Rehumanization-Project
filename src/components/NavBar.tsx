@@ -1,6 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import PrimaryButton from "./PrimaryButton";
-import { IoChevronDownSharp, IoMenu, IoClose, IoCloseSharp, IoMenuSharp } from "react-icons/io5";
+import {
+  IoChevronDownSharp,
+  IoMenu,
+  IoClose,
+  IoCloseSharp,
+  IoMenuSharp,
+} from "react-icons/io5";
 
 export default function NavBar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -49,7 +55,7 @@ export default function NavBar() {
     "Get Involved": [
       { label: "Donation Guide", href: "/donation-guide" },
       { label: "Volunteer Projects", href: "/volunteer" },
-      { label: "Partner With Us", href: "/partners" },
+      { label: "Partner With Us", href: "/partner" },
     ],
     About: [
       { label: "About Us", href: "/about" },
