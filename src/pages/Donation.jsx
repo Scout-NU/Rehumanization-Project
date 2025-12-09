@@ -4,14 +4,10 @@ const Donation = () => {
     return (
         <div className="donation-page">
         <div className="donation-page-heading">
-            <Image
+            <img
                 src="/donation.jpg"
                 alt=""
-                fill
-                style={{
-                    objectFit: "cover",
-                    objectPosition: "top"
-                }}
+                className="donation-header-image"
             />
             <div className="gradient-overlay" />
             <div className="donation-heading-text" >
