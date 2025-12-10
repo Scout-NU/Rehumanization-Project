@@ -4,6 +4,7 @@ import InternsSection from "./InternsSection";
 import PartnershipsSection from "./PartnershipsSection";
 import AdvisorsSection from "./AdvisorsSection";
 import HeroSection from "../../components/HeroSection";
+import Footer from "../../components/Footer";
 
 const OurTeam = () => {
   return (
@@ -18,6 +19,7 @@ const OurTeam = () => {
       <InternsSection />
       <PartnershipsSection />
       <AdvisorsSection />
+      <Footer />
     </div>
   );
 };

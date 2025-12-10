@@ -9,7 +9,7 @@ export default function ContactSection() {
       </div>
 
       <div className="py-10 md:py-20 lg:py-40 max-w-8xl mx-auto px-4 md:px-20 lg:px-30 relative z-20">
-        <div className="flex flex-col lg:flex-row gap-20 w-full items-start">
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-20 w-full items-start">
           {/* Left side content */}
           <div className="space-y-6 py-6 w-full">
             <h2 className="text-white text-subtitle font-semibold">

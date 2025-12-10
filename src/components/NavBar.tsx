@@ -49,8 +49,11 @@ export default function NavBar() {
   const dropdownData = {
     "Get Support": [
       { label: "Start Your Journey", href: "/start-journey" },
-      { label: "Resource Directory", href: "/resources" },
-      { label: "Log in to Client Portal", href: "/client-portal" },
+      { label: "Resource Directory", href: "/resource-directory" },
+      {
+        label: "Log in to Client Portal",
+        href: "https://helprehumanize.clientsecure.me/",
+      },
     ],
     "Get Involved": [
       { label: "Donation Guide", href: "/donation-guide" },
