@@ -54,7 +54,7 @@ const PartnerWithUs = () => {
         section="Get Involved"
         title="Partner With Us"
         subtitle="We work with organizations to make a broader impact."
-        image="/partner.png"
+        image="/partner.webp"
       />
 
       {/* Content */}
@@ -81,7 +81,7 @@ const PartnerWithUs = () => {
           {/* Image column */}
           <div
             className="w-full lg:w-1/2 h-auto aspect-[400/260] rounded-[16px] bg-cover bg-center mb-3 lg:mb-0"
-            style={{ backgroundImage: "url('/services.png')" }}
+            style={{ backgroundImage: "url('/services.webp')" }}
           />
         </div>
 
@@ -109,7 +109,7 @@ const PartnerWithUs = () => {
           {/* Image column */}
           <div
             className="w-full lg:w-1/2 h-auto aspect-[400/260] rounded-[16px] bg-cover bg-center mb-3 lg:mb-0"
-            style={{ backgroundImage: "url('/fundraiser.png')" }}
+            style={{ backgroundImage: "url('/fundraiser.webp')" }}
           />
         </div>
       </section>

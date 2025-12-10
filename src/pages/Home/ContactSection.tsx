@@ -5,7 +5,7 @@ export default function ContactSection() {
     <section className="relative bg-bg-secondary overflow-hidden">
       {/* Decorative curved lines */}
       <div className="hidden lg:flex w-screen absolute z-0 top-1/3">
-        <img src="/squiggly_line.png" className="w-full" />
+        <img src="/squiggly_line.webp" className="w-full" />
       </div>
 
       <div className="py-10 md:py-20 lg:py-40 max-w-8xl mx-auto px-4 md:px-20 lg:px-30 relative z-20">

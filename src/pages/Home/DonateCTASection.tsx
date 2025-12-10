@@ -2,10 +2,10 @@ import PrimaryButton from "../../components/PrimaryButton";
 
 const DonateCTASection = () => {
   return (
-    <section className="md:bg-bg-brand py-10 md:px-10 lg:px-10">
+    <section className="md:bg-bg-brand md:py-10 md:px-10 lg:px-10">
       <div className="bg-white max-w-8xl mx-auto p-4 sm:px-10 py-10 relative overflow-hidden md:rounded-xl">
         <img
-          src="/donate.png"
+          src="/donate.webp"
           className="absolute sm:-right-20 top-0 h-full w-auto z-0 min-w-0"
           style={{
             maxWidth: "none",

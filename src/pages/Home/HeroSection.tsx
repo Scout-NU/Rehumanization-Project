@@ -16,7 +16,7 @@ export default function HeroSection() {
         </svg> */}
 
         <img
-          src="/headers/home.png"
+          src="/headers/home.webp"
           alt="Hands together showing support and community"
           className="w-full h-full object-cover object-center"
           style={{ clipPath: "url(#hero-curve)" }}
