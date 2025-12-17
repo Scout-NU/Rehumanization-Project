@@ -298,7 +298,7 @@ const DonationCalculator = ({ title, children, footer, iconLeft, iconRight, onTo
 
   return (
     <div
-      className="bg-[#040E2E] text-white rounded-2xl w-[596px] h-auto max-h-[546px] p-6 shadow-lg overflow-auto"
+      className="bg-[#040E2E] text-white rounded-2xl w-[596px] h-auto max-h-[620px] p-6 shadow-lg overflow-auto"
       style={{ boxShadow: '0 8px 24px rgba(0,0,0,0.12)', fontFamily: 'Figtree, sans-serif' }}
     >
       <div className="flex items-start gap-4">
@@ -332,7 +332,7 @@ const DonationCalculator = ({ title, children, footer, iconLeft, iconRight, onTo
       />
 
       {selected === 'monthly' && (
-        <p className="mt-4 text-[12px] italic text-[#B4B4B4]">
+        <p className="mt-4 text-left" style={{ fontSize: '12px', fontStyle: 'italic', color: '#B4B4B4' }}>
           These figures are hypothetical estimations based on the current cost of each good.
         </p>
       )}
@@ -401,7 +401,7 @@ const Donation = () => {
                         footer={
                         <button
                             onClick={handleButtonClick}
-                            className="bg-[#DD522D] text-white py-2 px-6 rounded-full">
+                            className="w-full bg-[#DD522D] text-white py-2 px-6 rounded-full">
                             Open donation portal
                         </button>
                         }>
