@@ -26,6 +26,12 @@ interface CustomAmountInputProps {
   onChange?: (value: string) => void;
 }
 
+interface ItemCost {
+  icon: string | null;
+  name: string;
+  cost: number;
+}
+
 interface DetailLine {
   icon: string | null;
   number: string;
@@ -38,7 +44,7 @@ interface DonationSummaryProps {
   amount?: string;
   priceIndex?: number;
   priceOptions?: number[];
-  detailLines?: DetailLine[];
+  itemCosts?: ItemCost[];
 }
 
 interface DonationCalculatorProps {
@@ -180,6 +186,10 @@ const CustomAmountInput = ({ value = '', onChange }: CustomAmountInputProps) => 
     v = v.replace(/[^\d.]/g, '');
     const parts = v.split('.');
     if (parts.length > 2) v = parts[0] + '.' + parts.slice(1).join('');
+    // If the string ends with a period, preserve it
+    if (v.endsWith('.')) {
+      return v.split('.')[0] + '.';
+    }
     const [whole = '', frac = ''] = v.split('.');
     const frac2 = frac.slice(0, 2);
     return frac !== '' ? `${whole}.${frac2}` : whole;
@@ -242,10 +252,34 @@ const CustomAmountInput = ({ value = '', onChange }: CustomAmountInputProps) => 
   );
 };
 
-const DonationSummary = ({ selected = 'once', amount = '', priceIndex = 0, priceOptions = [], detailLines = [] }: DonationSummaryProps) => {
+const DonationSummary = ({ selected = 'once', amount = '', priceIndex = 0, priceOptions = [], itemCosts = [] }: DonationSummaryProps) => {
   const amt = parseFloat(String(amount).replace(/[^0-9.]/g, '')) || (priceOptions[priceIndex] ?? 0);
   const formatted = (n: number): string => (isNaN(n) ? '0.00' : n.toFixed(2));
   const yearly = amt * 12;
+
+  // Helper to get singular form of item name
+  const getSingular = (name: string): string => {
+    if (name === 'sets of clothing') return 'set of clothing';
+    if (name === 'meals') return 'meal';
+    if (name === 'tents') return 'tent';
+    return name.replace(/s$/, '');
+  };
+
+  // Calculate how many of each item can be provided
+  const calculatedItems: DetailLine[] = itemCosts
+    .map(item => {
+      const count = Math.floor(yearly / item.cost);
+      const singular = getSingular(item.name);
+      return {
+        icon: item.icon,
+        number: String(count),
+        text: count === 1 ? singular : item.name,
+        rightText: `${item.cost}/${singular}`,
+      };
+    })
+    .filter(item => parseInt(item.number) >= 1);
+
+  const canProvideItems = calculatedItems.length > 0;
 
   return (
     <div className="mt-6 w-full">
@@ -255,10 +289,10 @@ const DonationSummary = ({ selected = 'once', amount = '', priceIndex = 0, price
           background: '#07153C',
         }}
       >
-        {selected === 'once' ? (
+        {selected === 'once' || !canProvideItems ? (
           <div>
             <p className="text-white text-[16px] mb-3 text-left">
-              Your one-time donation of <span className="font-semibold">${formatted(amt)}</span> will support our growth as an organization and contribute to a fund that provides homeless people with goods that are essential to their livelihood.
+              Your {selected === 'monthly' ? '' : 'one-time '}donation of <span className="font-semibold">${formatted(selected === 'monthly' ? yearly : amt)}{selected === 'monthly' ? '/year' : ''}</span> will support our growth as an organization and contribute to a fund that provides homeless people with goods that are essential to their livelihood.
             </p>
           </div>
         ) : (
@@ -268,65 +302,35 @@ const DonationSummary = ({ selected = 'once', amount = '', priceIndex = 0, price
             </p>
 
             <div className="mt-3 flex flex-col gap-3 text-left">
-              {detailLines.length > 0 ? (
-                detailLines.map((line, idx) => (
-                  <div key={idx} className="flex items-start justify-between">
-                    <div className="flex items-start gap-3">
-                       {line.icon ? (
-                         <img src={line.icon} alt="" className="w-[24px] h-[24px] object-cover" />
-                       ) : (
-                         <svg className="w-[24px] h-[24px] flex-shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                           <rect width="24" height="24" rx="6" fill="#0A2572" />
-                         </svg>
-                       )}
+              {calculatedItems.map((line, idx) => (
+                <div key={idx} className="flex items-start justify-between">
+                  <div className="flex items-start gap-3">
+                    {line.icon ? (
+                      <img src={line.icon} alt="" className="w-[24px] h-[24px] object-cover" />
+                    ) : (
+                      <svg className="w-[24px] h-[24px] flex-shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="24" height="24" rx="6" fill="#0A2572" />
+                      </svg>
+                    )}
 
-                      <div className="flex items-baseline gap-2">
-                        <div className="text-white font-semibold text-[16px]">{line.number}</div>
-                        <div className="text-white text-[16px] opacity-90">{line.text}</div>
-                      </div>
-                     </div>
+                    <div className="flex items-baseline gap-1">
+                      <div className="text-white font-semibold text-[16px]">{line.number}</div>
+                      <div className="text-white text-[16px] opacity-90">{line.text}</div>
+                    </div>
+                  </div>
 
-                     <div className="text-white text-[13px] opacity-70">
-                       {line.rightText}
-                     </div>
-                   </div>
-                 ))
-               ) : (
-                 <>
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-start gap-3">
-                       <svg className="w-[24px] h-[24px] flex-shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                         <rect width="24" height="24" rx="6" fill="#0A2572" />
-                       </svg>
-                      <div className="flex items-baseline gap-2">
-                        <div className="text-white font-semibold text-[16px]">1</div>
-                        <div className="text-white text-[16px]">Meals provided</div>
-                      </div>
-                     </div>
-                     <div className="text-white text-[13px] opacity-70">$15/meal</div>
-                   </div>
-
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-start gap-3">
-                       <svg className="w-[24px] h-[24px] flex-shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                         <rect width="24" height="24" rx="6" fill="#0A2572" />
-                       </svg>
-                      <div className="flex items-baseline gap-2">
-                        <div className="text-white font-semibold text-[16px]">2</div>
-                        <div className="text-white text-[16px]">Care kits</div>
-                      </div>
-                     </div>
-                     <div className="text-white text-[13px] opacity-70">$25/kit</div>
-                   </div>
-                 </>
-               )}
-             </div>
-           </div>
-         )}
-       </div>
-     </div>
-   );
- };
+                  <div className="text-white text-[13px] opacity-70">
+                    {line.rightText}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
 
 const DonationCalculator = ({ title, children, footer, iconLeft, iconRight, onToggle }: DonationCalculatorProps) => {
   const [selected, setSelected] = useState<'once' | 'monthly'>('once');
@@ -340,11 +344,17 @@ const DonationCalculator = ({ title, children, footer, iconLeft, iconRight, onTo
 
   const priceOptions = [10, 25, 50, 100];
 
-  const detailLines: DetailLine[] = [
-    { icon: null, number: '40', text: 'meals', rightText: '$15/meal' },
-    { icon: null, number: '30', text: 'tents', rightText: '$20/tent' },
-    { icon: null, number: '24', text: 'sets of clothing', rightText: '$20/outfit' }
+  // Define item costs - these are used to calculate how many can be provided
+  const itemCosts: ItemCost[] = [
+    { icon: '/utensils.svg', name: 'meals', cost: 15 },
+    { icon: '/blue-tent.svg', name: 'tents', cost: 20 },
+    { icon: '/shirt.svg', name: 'sets of clothing', cost: 25 }
   ];
+
+  // Calculate yearly amount for showing/hiding disclaimer
+  const amt = parseFloat(String(customAmount).replace(/[^0-9.]/g, '')) || (priceOptions[priceIndex] ?? 0);
+  const yearly = amt * 12;
+  const canProvideAnyItems = itemCosts.some(item => Math.floor(yearly / item.cost) >= 1);
 
   return (
     <div
@@ -378,10 +388,10 @@ const DonationCalculator = ({ title, children, footer, iconLeft, iconRight, onTo
         amount={customAmount}
         priceIndex={priceIndex}
         priceOptions={priceOptions}
-        detailLines={detailLines}
+        itemCosts={itemCosts}
       />
 
-      {selected === 'monthly' && (
+      {selected === 'monthly' && canProvideAnyItems && (
         <p className="mt-4 text-left" style={{ fontSize: '12px', fontStyle: 'italic', color: '#B4B4B4' }}>
           These figures are hypothetical estimations based on the current cost of each good.
         </p>
