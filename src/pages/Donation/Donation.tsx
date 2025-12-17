@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 interface ToggleSwitchProps {
   selected: 'once' | 'monthly';
@@ -257,7 +258,6 @@ const DonationSummary = ({ selected = 'once', amount = '', priceIndex = 0, price
   const formatted = (n: number): string => (isNaN(n) ? '0.00' : n.toFixed(2));
   const yearly = amt * 12;
 
-  // Helper to get singular form of item name
   const getSingular = (name: string): string => {
     if (name === 'sets of clothing') return 'set of clothing';
     if (name === 'meals') return 'meal';
@@ -265,7 +265,6 @@ const DonationSummary = ({ selected = 'once', amount = '', priceIndex = 0, price
     return name.replace(/s$/, '');
   };
 
-  // Calculate how many of each item can be provided
   const calculatedItems: DetailLine[] = itemCosts
     .map(item => {
       const count = Math.floor(yearly / item.cost);
@@ -344,14 +343,12 @@ const DonationCalculator = ({ title, children, footer, iconLeft, iconRight, onTo
 
   const priceOptions = [10, 25, 50, 100];
 
-  // Define item costs - these are used to calculate how many can be provided
   const itemCosts: ItemCost[] = [
     { icon: '/utensils.svg', name: 'meals', cost: 15 },
     { icon: '/blue-tent.svg', name: 'tents', cost: 20 },
     { icon: '/shirt.svg', name: 'sets of clothing', cost: 25 }
   ];
 
-  // Calculate yearly amount for showing/hiding disclaimer
   const amt = parseFloat(String(customAmount).replace(/[^0-9.]/g, '')) || (priceOptions[priceIndex] ?? 0);
   const yearly = amt * 12;
   const canProvideAnyItems = itemCosts.some(item => Math.floor(yearly / item.cost) >= 1);
@@ -403,8 +400,9 @@ const DonationCalculator = ({ title, children, footer, iconLeft, iconRight, onTo
 };
 
 const Donation = () => {
-    const handleButtonClick = () => {
-        alert('Button clicked!');
+    const navigate = useNavigate();
+    const handleDonationButtonClick = () => {
+        window.open('https://www.zeffy.com/en-US/donation-form/donate-to-make-a-difference-12970', '_blank', 'noopener,noreferrer');
     };
 
     const handleToggle = (value: 'once' | 'monthly') => {
@@ -436,37 +434,39 @@ const Donation = () => {
                         title="Donate Funds"
                         description="Make a secure one-time or monthly donation to support our mission. Funds go directly to supporting homeless people."
                         buttonText="Make a Secure Donation"
-                        onButtonClick={handleButtonClick}
+                        onButtonClick={handleDonationButtonClick}
                     />
                     <DonationSegment
                         icon="tent.png"
                         title="Donate Goods"
                         description="We also accept donations of items like clothing, tech, sleeping bags, and more. If you'd like to donate goods, please reach out to us."
                         buttonText="Contact Us"
-                        onButtonClick={handleButtonClick}
+                        onButtonClick={() => navigate('/contact')}
                     />
                     <DonationSegment 
                         icon="amazon-logo.png"
                         title="Amazon Wishlist"
                         description="View our amazon wishlist to see what clients are asking for right now."
                         buttonText="View Amazon Wishlist"
-                        onButtonClick={handleButtonClick}
+                        onButtonClick={() => navigate('/partner')}
                     />
                 </div>
                 <div className="w-1/2 flex justify-start items-start">
+                  <div className="sticky top-24">
                     <DonationCalculator
                         title="Donation Calculator"
                         onToggle={handleToggle}
                         iconRight="/tiny-heart.svg"
                         footer={
                         <button
-                            onClick={handleButtonClick}
+                            onClick={handleDonationButtonClick}
                             className="w-full bg-[#DD522D] text-white py-2 px-6 rounded-full">
                             Open donation portal
                         </button>
                         }>
                         <p>See how your donation supports our mission</p>
                     </DonationCalculator>
+                  </div>
                 </div>
             </div>
             <div className="w-full bg-[#DD522D] mt-20 px-10 py-20">
@@ -479,7 +479,8 @@ const Donation = () => {
                         <div className="w-3/5 flex flex-col text-left">
                             <h2 className="text-5xl font-medium mb-4" style={{ color: '#060A1F', fontSize: '20px' }}>Volunteer with us to continue making an impact</h2>
                             <button 
-                                onClick={handleButtonClick}
+                                // onClick={() => navigate('/volunteer')}
+                                onClick={() => navigate('/partner')}
                                 className="text-white py-2 px-6 rounded-full self-start"
                                 style={{
                                     backgroundColor: '#DD522D'
