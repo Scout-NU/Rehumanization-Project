@@ -2,8 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import PrimaryButton from "./PrimaryButton";
 import {
   IoChevronDownSharp,
-  IoMenu,
-  IoClose,
   IoCloseSharp,
   IoMenuSharp,
 } from "react-icons/io5";

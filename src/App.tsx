@@ -6,6 +6,7 @@ import AboutUs from "./pages/AboutUs.jsx";
 import OurTeam from "./pages/OurTeam/page.tsx";
 import Home from "./pages/Home/page.tsx";
 import PartnerWithUs from "./pages/PartnerWithUs/page.tsx";
+import Donation from "./pages/Donation/page.tsx";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/team" element={<OurTeam />} />
         <Route path="/partner" element={<PartnerWithUs />} />
+        <Route path="/donation-guide" element={<Donation />} />
       </Routes>
     </BrowserRouter>
   );
