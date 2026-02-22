@@ -28,4 +28,5 @@ Developers: London Jones, Gayathri Ramakrishnan, Rhea Kallely
 
 # Tech Stack
 - React.js
+- TypeScript
 - Tailwind CSS
